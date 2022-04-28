@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>
+			Longpoll Chat
+		</title>
+	</head>
+
+	<body>
+		<input/>
+		<button>
+			Send
+		</button>
+
+		<p></p>
+
+		<script>
+			const input = document.querySelector('input');
+			document.querySelector('button')
+				.addEventListener('click', () => {
+					if (input.value)
+						fetch('/publish', {
+							method: 'POST',
+							body: input.value
+						});
+					input.value = '';
+				});
+
+			const chat = document.querySelector('p');
+			(async function subscribe () {
+				const response = await fetch('/subscribe');
+				if (response.ok)
+					chat.innerText = await response.text() + '\n' + chat.innerText;
+				else
+					await new Promise((resolve) => setTimeout(resolve, 1000));
+				requestAnimationFrame(subscribe);
+			})();
+			requestAnimationFrame(subscribe);
+		</script>
+	</body>
+</html>
