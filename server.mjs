@@ -1,7 +1,5 @@
-
 import { createServer } from 'http';
 import { createReadStream } from 'fs';
-
 
 const subscribers = [];
 
