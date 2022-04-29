@@ -1,6 +1,6 @@
 
-const { createServer } = require('http');
-const { createReadStream } = require('fs');
+import { createServer } from 'http';
+import { createReadStream } from 'fs';
 
 
 const subscribers = [];
